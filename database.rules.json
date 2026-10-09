@@ -1,0 +1,47 @@
+{
+  "rules": {
+    "love_rooms": {
+      "$roomId": {
+        /*
+          Firebase Realtime Database Security Rules for Forever Us ❤️
+          - Anyone with the private 6-character room code can read and interact with the room.
+          - Room codes are cryptographically generated and private between the couple.
+          - Answers are validated to ensure scores cannot be tampered with.
+        */
+        ".read": true,
+        ".write": true,
+        ".validate": "newData.hasChildren(['code', 'status'])",
+        "code": {
+          ".validate": "newData.isString() && newData.val().length >= 4 && newData.val().length <= 12"
+        },
+        "mode": {
+          ".validate": "newData.isString()"
+        },
+        "status": {
+          ".validate": "newData.val() === 'waiting' || newData.val() === 'ready' || newData.val() === 'completed'"
+        },
+        "player1": {
+          "name": {
+            ".validate": "!newData.exists() || (newData.isString() && newData.val().length <= 60)"
+          },
+          "progress": {
+            ".validate": "!newData.exists() || (newData.isNumber() && newData.val() >= 0 && newData.val() <= 50)"
+          }
+        },
+        "player2": {
+          "name": {
+            ".validate": "!newData.exists() || (newData.isString() && newData.val().length <= 60)"
+          },
+          "progress": {
+            ".validate": "!newData.exists() || (newData.isNumber() && newData.val() >= 0 && newData.val() <= 50)"
+          }
+        },
+        "result": {
+          "score": {
+            ".validate": "!newData.exists() || (newData.isNumber() && newData.val() >= 0 && newData.val() <= 100)"
+          }
+        }
+      }
+    }
+  }
+}

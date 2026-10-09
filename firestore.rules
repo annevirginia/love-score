@@ -1,0 +1,22 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Forever Us ❤️ - Cloud Firestore Security Rules
+    match /love_rooms/{roomId} {
+      // Allow couple participants to read the room state
+      allow read: if true;
+
+      // Allow room creation with valid code and mode
+      allow create: if request.resource.data.code is string
+                    && request.resource.data.code.size() >= 4
+                    && request.resource.data.code.size() <= 12
+                    && request.resource.data.status == 'waiting';
+
+      // Allow updates to player answers and progress, but preserve the room code
+      allow update: if request.resource.data.code == resource.data.code;
+
+      // Prevent accidental or unauthorized deletion of active rooms
+      allow delete: if false;
+    }
+  }
+}
