@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Love Score ❤️ — Localhost Navigation Portal</title>
+  <meta name="description" content="Quick access navigation portal and directory hub for all pages, routes, media assets, and backend API endpoints on localhost:3000">
+  <link rel="icon" href="http://localhost:3000/favicon.ico" type="image/x-icon">
+
+  <!-- Google Fonts: Pacifico & Poppins & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Pacifico&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #FFE4EC 0%, #FDEBF4 35%, #F4DBFF 75%, #FFE5EE 100%);
+      --bg-color: #FFF2F7;
+      --card-bg: rgba(255, 255, 255, 0.82);
+      --card-border: rgba(255, 133, 179, 0.45);
+      --card-border-hover: rgba(255, 8, 68, 0.65);
+      --card-shadow: 0 14px 36px rgba(230, 0, 57, 0.08), 0 4px 12px rgba(142, 5, 194, 0.05);
+      --card-shadow-hover: 0 22px 50px rgba(230, 0, 57, 0.18), 0 8px 24px rgba(142, 5, 194, 0.12);
+
+      --ruby-red: #FF0844;
+      --deep-rose: #FF2E74;
+      --romantic-red: #E60039;
+      --royal-purple: #8E05C2;
+      --soft-lavender: #EBD3F8;
+      --gold-accent: #D4AF37;
+
+      --text-main: #380D21;
+      --text-muted: #793A57;
+      --text-subtle: #A26B84;
+      --code-bg: rgba(255, 235, 245, 0.9);
+
+      --btn-primary-bg: linear-gradient(135deg, #FF0844 0%, #8E05C2 100%);
+      --btn-primary-text: #FFFFFF;
+      --btn-secondary-bg: rgba(255, 255, 255, 0.95);
+      --btn-secondary-text: #FF0844;
+      --btn-secondary-border: rgba(255, 8, 68, 0.25);
+
+      --status-online: #10B981;
+      --status-offline: #EF4444;
+      --status-checking: #F59E0B;
+    }
+
+    [data-theme="dark"] {
+      --bg-gradient: linear-gradient(135deg, #170314 0%, #250522 40%, #150222 80%, #0B0011 100%);
+      --bg-color: #120210;
+      --card-bg: rgba(35, 10, 30, 0.85);
+      --card-border: rgba(255, 77, 141, 0.3);
+      --card-border-hover: rgba(255, 26, 83, 0.8);
+      --card-shadow: 0 14px 40px rgba(0, 0, 0, 0.5), 0 4px 16px rgba(142, 5, 194, 0.2);
+      --card-shadow-hover: 0 24px 55px rgba(255, 8, 68, 0.25), 0 8px 30px rgba(184, 0, 255, 0.2);
+
+      --ruby-red: #FF1A53;
+      --deep-rose: #FF3B7A;
+      --romantic-red: #FF0844;
+      --royal-purple: #B800FF;
+      --soft-lavender: #3B1242;
+
+      --text-main: #FFE6F1;
+      --text-muted: #E6A7C4;
+      --text-subtle: #AC708C;
+      --code-bg: rgba(45, 12, 38, 0.9);
+
+      --btn-primary-bg: linear-gradient(135deg, #FF0844 0%, #B800FF 100%);
+      --btn-secondary-bg: rgba(45, 14, 40, 0.9);
+      --btn-secondary-text: #FF85B3;
+      --btn-secondary-border: rgba(255, 77, 141, 0.4);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    }
+
+    body {
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-gradient);
+      background-attachment: fixed;
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    /* Ambient background hearts */
+    .bg-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      color: rgba(255, 8, 68, 0.15);
+      animation: floatUp 16s linear infinite;
+      user-select: none;
+    }
+    [data-theme="dark"] .particle {
+      color: rgba(255, 77, 141, 0.12);
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(105vh) scale(0.8) rotate(0deg);
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.8;
+      }
+      80% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.2) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Container */
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 20px 80px;
+    }
+
+    /* Header */
+    header {
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      padding: 28px 32px;
+      margin-bottom: 28px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, var(--ruby-red) 0%, var(--royal-purple) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      box-shadow: 0 8px 24px rgba(255, 8, 68, 0.4);
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 8px 24px rgba(255, 8, 68, 0.4);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 12px 32px rgba(255, 8, 68, 0.65);
+      }
+    }
+
+    .brand-text h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.1rem;
+      color: var(--ruby-red);
+      line-height: 1.1;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-text p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-top: 4px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* Port Selector Pill */
+    .port-selector {
+      display: flex;
+      align-items: center;
+      background: var(--code-bg);
+      border: 1px solid var(--card-border);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      gap: 8px;
+    }
+
+    .port-input {
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: monospace;
+      font-size: 0.95rem;
+      font-weight: bold;
+      color: var(--ruby-red);
+      width: 58px;
+      text-align: center;
+    }
+
+    /* Live Server Status Badges */
+    .server-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 16px;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      background: var(--code-bg);
+      border: 1px solid var(--card-border);
+      cursor: pointer;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--status-checking);
+      box-shadow: 0 0 10px var(--status-checking);
+      display: inline-block;
+    }
+
+    .status-dot.online {
+      background-color: var(--status-online);
+      box-shadow: 0 0 10px var(--status-online);
+    }
+    .status-dot.offline {
+      background-color: var(--status-offline);
+      box-shadow: 0 0 10px var(--status-offline);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: 9999px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-primary {
+      background: var(--btn-primary-bg);
+      color: var(--btn-primary-text);
+      box-shadow: 0 6px 18px rgba(255, 8, 68, 0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(255, 8, 68, 0.5);
+    }
+
+    .btn-secondary {
+      background: var(--btn-secondary-bg);
+      color: var(--btn-secondary-text);
+      border: 1px solid var(--btn-secondary-border);
+    }
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      background: var(--code-bg);
+      border-color: var(--ruby-red);
+    }
+
+    .btn-icon {
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      border-radius: 50%;
+      background: var(--btn-secondary-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+    .btn-icon:hover {
+      transform: scale(1.08);
+      border-color: var(--ruby-red);
+      color: var(--ruby-red);
+    }
+
+    /* Control Panel Bar: Search & Quick Filters */
+    .control-bar {
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 16px 24px;
+      margin-bottom: 32px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .search-wrapper {
+      position: relative;
+      flex: 1;
+      min-width: 260px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 12px 18px 12px 42px;
+      border-radius: 9999px;
+      border: 1.5px solid var(--card-border);
+      background: var(--code-bg);
+      color: var(--text-main);
+      font-size: 0.92rem;
+      outline: none;
+      font-family: inherit;
+      transition: all 0.25s ease;
+    }
+    .search-input:focus {
+      border-color: var(--ruby-red);
+      box-shadow: 0 0 16px rgba(255, 8, 68, 0.25);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.05rem;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filter-btn {
+      padding: 7px 16px;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      background: transparent;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--ruby-red);
+      border-color: var(--ruby-red);
+      color: #FFF;
+      box-shadow: 0 4px 12px rgba(255, 8, 68, 0.3);
+    }
+
+    /* Section Styles */
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin: 36px 0 18px;
+    }
+
+    .section-title span.badge {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      background: rgba(255, 8, 68, 0.12);
+      color: var(--ruby-red);
+      border: 1px solid rgba(255, 8, 68, 0.25);
+    }
+
+    /* Card Grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+    }
+
+    /* Route Card */
+    .route-card {
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .route-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--card-border-hover);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(255, 8, 68, 0.15) 0%, rgba(142, 5, 194, 0.15) 100%);
+      border: 1px solid rgba(255, 8, 68, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .card-meta {
+      flex: 1;
+    }
+
+    .card-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .route-badge {
+      display: inline-block;
+      font-family: monospace;
+      font-size: 0.76rem;
+      font-weight: 600;
+      background: var(--code-bg);
+      color: var(--ruby-red);
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--card-border);
+      margin-top: 4px;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+      margin-bottom: 18px;
+      flex-grow: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding-top: 14px;
+      border-top: 1px solid var(--card-border);
+    }
+
+    .card-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Thumbnail for Image Asset Cards */
+    .asset-thumbnail-container {
+      width: 100%;
+      height: 160px;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      background: #00000010;
+      border: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .asset-thumbnail {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .route-card:hover .asset-thumbnail {
+      transform: scale(1.06);
+    }
+
+    /* Cheat Sheet Card */
+    .cheat-card {
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 22px;
+      padding: 24px;
+      margin-top: 36px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .cheat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .cmd-box {
+      background: var(--code-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .cmd-box code {
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--ruby-red);
+      word-break: break-all;
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 1000;
+      background: linear-gradient(135deg, #FF0844 0%, #8E05C2 100%);
+      color: #FFF;
+      padding: 12px 24px;
+      border-radius: 9999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(255, 8, 68, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    #toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Preview Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 1000px;
+      height: 85vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+      animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes modalPop {
+      0% {
+        transform: scale(0.92);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .modal-header {
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .modal-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .modal-iframe {
+      width: 100%;
+      flex: 1;
+      border: none;
+      background: #FFFFFF;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      color: var(--text-subtle);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Background Ambient Hearts -->
+  <div class="bg-particles" id="particlesContainer"></div>
+
+  <div class="container">
+
+    <!-- Header Navigation Hub -->
+    <header>
+      <div class="brand">
+        <div class="brand-icon">💖</div>
+        <div class="brand-text">
+          <h1>Love Score Hub</h1>
+          <p>Localhost Directory & Route Explorer for Couple Compatibility App</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <!-- Port Config Pill -->
+        <div class="port-selector" title="Change target port if running on a different port">
+          <span>Target Host:</span>
+          <span style="opacity:0.7">http://localhost:</span>
+          <input type="number" id="portInput" class="port-input" value="3000" min="1" max="65535" aria-label="Port number">
+        </div>
+
+        <!-- Frontend Server Status -->
+        <div class="server-status-pill" id="frontendStatusPill" onclick="checkAllServerStatus()" title="Click to refresh connection status">
+          <span class="status-dot" id="frontendDot"></span>
+          <span id="frontendStatusText">Checking Next.js (3000)...</span>
+        </div>
+
+        <!-- Backend Server Status -->
+        <div class="server-status-pill" id="backendStatusPill" onclick="checkAllServerStatus()" title="Click to refresh backend API connection">
+          <span class="status-dot" id="backendDot"></span>
+          <span id="backendStatusText">Checking FastAPI (8000)...</span>
+        </div>
+
+        <!-- Dark / Light Mode Toggle -->
+        <button class="btn-icon" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Light/Dark Theme" aria-label="Toggle theme">
+          🌙
+        </button>
+      </div>
+    </header>
+
+    <!-- Search & Filters Bar -->
+    <div class="control-bar">
+      <div class="search-wrapper">
+        <span class="search-icon">🔍</span>
+        <input 
+          type="text" 
+          id="searchInput" 
+          class="search-input" 
+          placeholder="Filter pages, routes, or assets (e.g. quiz, multiplayer, avatars)..."
+          oninput="filterCards()"
+        >
+      </div>
+
+      <div class="filter-pills">
+        <button class="filter-btn active" onclick="setCategoryFilter('all', this)">All (16)</button>
+        <button class="filter-btn" onclick="setCategoryFilter('app', this)">💖 App Pages (6)</button>
+        <button class="filter-btn" onclick="setCategoryFilter('assets', this)">🎨 Avatars & Icons (6)</button>
+        <button class="filter-btn" onclick="setCategoryFilter('api', this)">⚡ FastAPI Endpoints (4)</button>
+      </div>
+
+      <div style="display:flex; gap:8px;">
+        <button class="btn btn-primary" onclick="openAllPages()" title="Open all 6 core app pages in browser tabs">
+          🚀 Launch All
+        </button>
+      </div>
+    </div>
+
+    <!-- Section 1: Main Application Pages (Next.js) -->
+    <div class="section-group" data-group="app">
+      <h2 class="section-title">
+        <span>💖 Core Application Routes</span>
+        <span class="badge">Next.js Web Pages</span>
+      </h2>
+      <div class="card-grid" id="appPagesGrid">
+
+        <!-- Card: Home -->
+        <div class="route-card" data-category="app" data-keywords="home setup root welcome names avatars modes">
+          <div>
+            <div class="card-top">
+              <div class="card-icon">🏠</div>
+              <div class="card-meta">
+                <div class="card-title">Couples Home & Setup</div>
+                <div class="route-badge dynamic-url" data-path="/">/</div>
+              </div>
+            </div>
+            <p class="card-desc">
+              Grand couples entry screen, partner name/avatar setup, single device vs multiplayer mode selector, and relationship memory wall preview.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span style="font-size:0.75rem; font-weight:700; color:var(--ruby-red);">MAIN HUB</span>
+            <div class="card-actions">
+              <button class="btn btn-secondary" onclick="previewRoute('/')">👁️ Preview</button>
+              <button class="btn btn-secondary" onclick="copyRouteUrl('/')">📋 Copy</button>
+              <a href="http://localhost:3000/" target="_blank" class="btn btn-primary dynamic-link" data-path="/">🚀 Open</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card: Quiz -->
+        <div class="route-card" data-category="app" data-keywords="quiz test questions 20 scenarios scales empathy passage">
+          <div>
+            <div class="card-top">
+              <div class="card-icon">💍</div>
+              <div class="card-meta">
+                <div class="card-title">20-Question Love Quiz</div>
+                <div class="route-badge dynamic-url" data-path="/quiz">/quiz</div>
+              </div>
+            </div>
+            <p class="card-desc">
+              Comprehensive single-phone couple quiz. 5 romantic question types (Scenarios, This or That, 1–5 Scales, Who is More Likely, Empathy) + Secret Partner Passage entry.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span style="font-size:0.75rem; font-weight:700; color:var(--ruby-red);">PLAY MODE</span>
+            <div class="card-actions">
+              <button class="btn btn-secondary" onclick="previewRoute('/quiz')">👁️ Preview</button>
+              <button class="btn btn-secondary" onclick="copyRouteUrl('/quiz')">📋 Copy</button>
+              <a href="http://localhost:3000/quiz" target="_blank" class="btn btn-primary dynamic-link" data-path="/quiz">🚀 Open</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card: Multiplayer -->
+        <div class="route-card" data-category="app" data-keywords="multiplayer room code websocket 2 devices phones realtime connect">
+          <div>
+            <div class="card-top">
+              <div class="card-icon">📱</div>
+              <div class="card-meta">
+                <div class="card-title">Real-Time Multiplayer Room</div>
+                <div class="route-badge dynamic-url" data-path="/multiplayer">/multiplayer</div>
+              </div>
+            </div>
+            <p class="card-desc">
+              Connect 2 different phones or browser tabs with a 6-character room code. Live dual sync with progress indicators and synchronized passage reveal.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span style="font-size:0.75rem; font-weight:700; color:var(--ruby-red);">2-PLAYER LIVE</span>
+            <div class="card-actions">
+              <button class="btn btn-secondary" onclick="previewRoute('/multiplayer')">👁️ Preview</button>
+              <button class="btn btn-secondary" onclick="copyRouteUrl('/multiplayer')">📋 Copy</button>
+              <a href="http://localhost:3000/multiplayer" target="_blank" class="btn btn-primary dynamic-link" data-path="/multiplayer">🚀 Open</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card: Result -->
+        <div class="route-card" data-category="app" data-keywords="result score heart liquid wax seal passage reveal certificate whatsapp">
+          <div>
+            <div class="card-top">
+              <div class="card-icon">🏆</div>
+              <div class="card-meta">
+                <div class="card-title">Results & Wax Seal Reveal</div>
+                <div class="route-badge dynamic-url" data-path="/result">/result</div>
+              </div>
+            </div>
+            <p class="card-desc">
+              Pulsing crimson liquid heart score gauge, 5 tier compatibility, interactive wax-sealed partner suggestions reveal, 20-question comparison explorer, & downloadable PNG certificate.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span style="font-size:0.75rem; font-weight:700; color:var(--ruby-red);">COMPATIBILITY</span>
+            <div class="card-actions">
+              <button class="btn btn-secondary" onclick="previewRoute('/result')">👁️ Preview</button>
+              <button class="btn btn-secondary" onclick="copyRouteUrl('/result')">📋 Copy</button>
+              <a href="http://localhost:3000/result" target="_blank" class="btn btn-primary dynamic-link" data-path="/result">🚀 Open</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card: Suggestions -->
+        <div class="route-card" data-category="app" data-keywords="suggestions advice ai couple coach dates tips love language">
+          <div>
+            <div class="card-top">
+              <div class="card-icon">💌</div>
+              <div class="card-meta">
+                <div class="card-title">Secret Suggestion Box & Coach</div>
+                <div class="route-badge dynamic-url" data-path="/suggestions">/suggestions</div>
+              </div>
+            </div>
+            <p class="card-desc">
+              Dedicated relationship suggestions box with theme tags (Romantic Wish, Sweet Habit, Dream Date) plus AI Couple Coach insights, superpower tags, & weekend couple challenges.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span style="font-size:0.75rem; font-weight:700; color:var(--ruby-red);">COUPLE COACH</span>
+            <div class="card-actions">
+              <button class="btn btn-secondary" onclick="previewRoute('/suggestions')">👁️ Preview</button>
+              <button class="btn btn-secondary" onclick="copyRouteUrl('/suggestions')">📋 Copy</button>
+              <a href="http://localhost:3000/suggestions" target="_blank" class="btn btn-primary dynamic-link" data-path="/suggestions">🚀 Open</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card: Profile -->
+        <div class="route-card" data-category="app" data-keywords="profile history memories wall achievements certificates love notes">
+          <div>
+            <div class="card-top">
+              <div class="card-icon">👤</div>
+              <div class="card-meta">
+                <div class="card-title">Couple Memory Wall & Profile</div>
+                <div class="route-badge dynamic-url" data-path="/profile">/profile</div>
+              </div>
+            </div>
+            <p class="card-desc">
+              Historical memory wall tracking previous quiz submissions, relationship milestone badges, saved keepsake certificates, and anniversary counter.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span style="font-size:0.75rem; font-weight:700; color:var(--ruby-red);">ARCHIVE</span>
+            <div class="card-actions">
+              <button class="btn btn-secondary" onclick="previewRoute('/profile')">👁️ Preview</button>
+              <button class="btn btn-secondary" onclick="copyRouteUrl('/profile')">📋 Copy</button>
+              <a href="http://localhost:3000/profile" target="_blank" class="btn btn-primary dynamic-link" data-path="/profile">🚀 Open</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Section 2: Public Static Files & Media Assets -->
+    <div class="section-group" data-group="assets">
+      <h2 class="section-title">
+        <span>🎨 Public Static Media & Assets</span>
+        <span class="badge">Direct localhost:3000 Files</span>
+      </h2>
+      <div class="card-grid" id="assetsGrid">
+
+        <!-- Avatar: Match Hugging -->
+        <div class="route-card" data-category="assets" data-keywords="avatar photo image match hugging couple jpg">
+          <div class="asset-thumbnail-container">
+            <img src="http://localhost:3000/images/avatars/couple_match_hugging.jpg" alt="Match Hugging Avatar" class="asset-thumbnail" onerror="this.parentElement.innerHTML='<div style=\'padding:20px;text-align:center;font-size:0.8rem;color:var(--ruby-red)\'>📸 Avatar Available when server is running</div>'">
+          </div>
+          <div>
+            <div class="card-title" style="font-size:1.05rem;">Avatar: Match Hugging</div>
+            <div class="route-badge dynamic-url" data-path="/images/avatars/couple_match_hugging.jpg">/images/avatars/couple_match_hugging.jpg</div>
+            <p class="card-desc" style="margin-top:8px;">
+              High-definition romantic couple portrait representing a high-compatibility match hug.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span style="font-size:0.75rem; font-weight:700; color:var(--ruby-red);">JPG IMAGE</span>
+            <div class="card-actions">
+              <button class="btn btn-secondary" onclick="copyRouteUrl('/images/avatars/couple_match_hugging.jpg')">📋 Copy</button>
+              <a href="http://localhost:3000/images/avatars/couple_match_hugging.jpg" target="_blank" class="btn btn-primary dynamic-link" data-path="/images/avatars/couple_match_hugging.jpg">View Asset</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Avatar: Good Connection -->
+        <div class="route-card" data-category="assets" data-keywords="avatar photo image connection good couple jpg">
+          <div class="asset-thumbnail-container">
+            <img src="http://localhost:3000/images/avatars/couple_good_connection.jpg" alt="Good Connection Avatar" class="asset-thumbnail" onerror="this.parentElement.innerHTML='<div style=\'padding:20px;text-align:center;font-size:0.8rem;color:var(--ruby-red)\'>📸 Avatar Available when server is running</div>'">
+          </div>
+          <div>
+            <div class="card-title" style="font-size:1.05rem;">Avatar: Good Connection</div>
+            <div class="route-badge dynamic-url" data-path="/images/avatars/couple_good_connection.jpg">/images/avatars/couple_good_connection.jpg</div>
+            <p class="card-desc" style="margin-top:8px;">
+              Romantic couple avatar expressing sweet emotional connection and cozy intimacy.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span style="font-size:0.75rem; font-weight:700; color:var(--ruby-red);">JPG IMAGE</span>
+            <div class="card-actions">
+              <button class="btn btn-secondary" onclick="copyRouteUrl('/images/avatars/couple_good_connection.jpg')">📋 Copy</button>
+              <a href="http://localhost:3000/images/avatars/couple_good_connection.jpg" target="_blank" class="btn btn-primary dynamic-link" data-path="/images/avatars/couple_good_connection.jpg">View Asset</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Avatar: Ready Waiting -->
+        <div class="route-card" data-category="assets" data-keywords="avatar photo image ready waiting couple jpg">
+          <div class="asset-thumbnail-container">
+            <img src="http://localhost:3000/images/avatars/couple_ready_waiting.jpg" alt="Ready Waiting Avatar" class="asset-thumbnail" onerror="this.parentElement.innerHTML='<div style=\'padding:20px;text-align:center;font-size:0.8rem;color:var(--ruby-red)\'>📸 Avatar Available when server is running</div>'">
+          </div>
+          <div>
+            <div class="card-title" style="font-size:1.05rem;">Avatar: Ready Waiting</div>
+            <div class="route-badge dynamic-url" data-path="/images/avatars/couple_ready_waiting.jpg">/images/avatars/couple_ready_waiting.jpg</div>
+            <p class="card-desc" style="margin-top:8px;">
+              Vibrant couple portrait used for multiplayer lobby waiting room and ready statuses.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span style="font-size:0.75rem; font-weight:700; color:var(--ruby-red);">JPG IMAGE</span>
+            <div class="card-actions">
+              <button class="btn btn-secondary" onclick="copyRouteUrl('/images/avatars/couple_ready_waiting.jpg')">📋 Copy</button>
+              <a href="http://localhost:3000/images/avatars/couple_ready_waiting.jpg" target="_blank" class="btn btn-primary dynamic-link" data-path="/images/avatars/couple_ready_waiting.jpg">View Asset</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Avatar: Get Lost -->
+        <div class="route-card" data-category="assets" data-keywords="avatar photo image get lost couple jpg adventure">
+          <div class="asset-thumbnail-container">
+            <img src="http://localhost:3000/images/avatars/couple_get_lost.jpg" alt="Get Lost Adventure Avatar" class="asset-thumbnail" onerror="this.parentElement.innerHTML='<div style=\'padding:20px;text-align:center;font-size:0.8rem;color:var(--ruby-red)\'>📸 Avatar Available when server is running</div>'">
+          </div>
+          <div>
+            <div class="card-title" style="font-size:1.05rem;">Avatar: Getting Lost Together</div>
+            <div class="route-badge dynamic-url" data-path="/images/avatars/couple_get_lost.jpg">/images/avatars/couple_get_lost.jpg</div>
+            <p class="card-desc" style="margin-top:8px;">
+              Couples adventure aesthetic portrait celebrating travel, wanderlust, and spontaneity.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span style="font-size:0.75rem; font-weight:700; color:var(--ruby-red);">JPG IMAGE</span>
+            <div class="card-actions">
+              <button class="btn btn-secondary" onclick="copyRouteUrl('/images/avatars/couple_get_lost.jpg')">📋 Copy</button>
+              <a href="http://localhost:3000/images/avatars/couple_get_lost.jpg" target="_blank" class="btn btn-primary dynamic-link" data-path="/images/avatars/couple_get_lost.jpg">View Asset</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Favicon -->
+        <div class="route-card" data-category="assets" data-keywords="favicon icon brand app ico">
+          <div>
+            <div class="card-top">
+              <div class="card-icon">💖</div>
+              <div class="card-meta">
+                <div class="card-title">Browser Favicon</div>
+                <div class="route-badge dynamic-url" data-path="/favicon.ico">/favicon.ico</div>
+              </div>
+            </div>
+            <p class="card-desc">
+              Standard browser shortcut icon with romantic pink heart branding.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span style="font-size:0.75rem; font-weight:700; color:var(--ruby-red);">ICO ICON</span>
+            <div class="card-actions">
+              <button class="btn btn-secondary" onclick="copyRouteUrl('/favicon.ico')">📋 Copy</button>
+              <a href="http://localhost:3000/favicon.ico" target="_blank" class="btn btn-primary dynamic-link" data-path="/favicon.ico">View Icon</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Next / Vercel SVG Assets -->
+        <div class="route-card" data-category="assets" data-keywords="svg nextjs vercel logo icons assets">
+          <div>
+            <div class="card-top">
+              <div class="card-icon">📐</div>
+              <div class="card-meta">
+                <div class="card-title">Next.js & Brand SVGs</div>
+                <div class="route-badge dynamic-url" data-path="/next.svg">/next.svg & /globe.svg</div>
+              </div>
+            </div>
+            <p class="card-desc">
+              Static SVG vector assets in <code>public/</code>: <code>next.svg</code>, <code>vercel.svg</code>, <code>globe.svg</code>, <code>file.svg</code>.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span style="font-size:0.75rem; font-weight:700; color:var(--ruby-red);">VECTOR SVG</span>
+            <div class="card-actions">
+              <button class="btn btn-secondary" onclick="copyRouteUrl('/next.svg')">📋 Copy</button>
+              <a href="http://localhost:3000/next.svg" target="_blank" class="btn btn-primary dynamic-link" data-path="/next.svg">View SVG</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Section 3: Backend FastAPI Endpoints (Port 8000) -->
+    <div class="section-group" data-group="api">
+      <h2 class="section-title">
+        <span>⚡ FastAPI Backend Endpoints</span>
+        <span class="badge">Port 8000 (Connected)</span>
+      </h2>
+      <div class="card-grid" id="apiGrid">
+
+        <!-- Swagger Docs -->
+        <div class="route-card" data-category="api" data-keywords="docs swagger api backend endpoints fastapi test interactive">
+          <div>
+            <div class="card-top">
+              <div class="card-icon">📘</div>
+              <div class="card-meta">
+                <div class="card-title">Swagger UI Documentation</div>
+                <div class="route-badge" style="color:#8E05C2;">http://localhost:8000/docs</div>
+              </div>
+            </div>
+            <p class="card-desc">
+              Interactive OpenAPI documentation. Test <code>/api/room/create</code>, <code>/api/room/join</code>, <code>/api/submit</code>, and WebSockets directly in your browser.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span style="font-size:0.75rem; font-weight:700; color:#8E05C2;">SWAGGER</span>
+            <div class="card-actions">
+              <button class="btn btn-secondary" onclick="previewRoute('http://localhost:8000/docs', true)">👁️ Preview</button>
+              <button class="btn btn-secondary" onclick="copyRawUrl('http://localhost:8000/docs')">📋 Copy</button>
+              <a href="http://localhost:8000/docs" target="_blank" class="btn btn-primary">🚀 Open</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ReDoc -->
+        <div class="route-card" data-category="api" data-keywords="redoc documentation schema api specs backend fastapi">
+          <div>
+            <div class="card-top">
+              <div class="card-icon">📑</div>
+              <div class="card-meta">
+                <div class="card-title">ReDoc API Specifications</div>
+                <div class="route-badge" style="color:#8E05C2;">http://localhost:8000/redoc</div>
+              </div>
+            </div>
+            <p class="card-desc">
+              Clean 3-panel API documentation view detailing request/response schemas, payload structures, and error codes.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span style="font-size:0.75rem; font-weight:700; color:#8E05C2;">REDOC</span>
+            <div class="card-actions">
+              <button class="btn btn-secondary" onclick="previewRoute('http://localhost:8000/redoc', true)">👁️ Preview</button>
+              <button class="btn btn-secondary" onclick="copyRawUrl('http://localhost:8000/redoc')">📋 Copy</button>
+              <a href="http://localhost:8000/redoc" target="_blank" class="btn btn-primary">🚀 Open</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Health Check -->
+        <div class="route-card" data-category="api" data-keywords="health check status ping api json">
+          <div>
+            <div class="card-top">
+              <div class="card-icon">🩺</div>
+              <div class="card-meta">
+                <div class="card-title">Backend Health Check</div>
+                <div class="route-badge" style="color:#8E05C2;">http://localhost:8000/api/health</div>
+              </div>
+            </div>
+            <p class="card-desc">
+              Returns JSON health status <code>{"status": "ok"}</code> to verify backend readiness.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span style="font-size:0.75rem; font-weight:700; color:#8E05C2;">JSON GET</span>
+            <div class="card-actions">
+              <button class="btn btn-secondary" onclick="copyRawUrl('http://localhost:8000/api/health')">📋 Copy</button>
+              <a href="http://localhost:8000/api/health" target="_blank" class="btn btn-primary">🚀 Open</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submissions Backup -->
+        <div class="route-card" data-category="api" data-keywords="submissions backup results json history api">
+          <div>
+            <div class="card-top">
+              <div class="card-icon">💾</div>
+              <div class="card-meta">
+                <div class="card-title">Recent Submissions Backup</div>
+                <div class="route-badge" style="color:#8E05C2;">http://localhost:8000/api/submissions</div>
+              </div>
+            </div>
+            <p class="card-desc">
+              Fetches recent local JSON backups of completed couple scores, secret notes, and answers.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span style="font-size:0.75rem; font-weight:700; color:#8E05C2;">JSON GET</span>
+            <div class="card-actions">
+              <button class="btn btn-secondary" onclick="copyRawUrl('http://localhost:8000/api/submissions')">📋 Copy</button>
+              <a href="http://localhost:8000/api/submissions" target="_blank" class="btn btn-primary">🚀 Open</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Quick Terminal Cheat Sheet -->
+    <div class="cheat-card">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span style="font-size:24px;">💻</span>
+        <div>
+          <h3 style="font-family:'Outfit', sans-serif; font-size:1.15rem; color:var(--text-main);">Quick Dev Server Launch Commands</h3>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Run these commands in separate terminal tabs if localhost is not running:</p>
+        </div>
+      </div>
+
+      <div class="cheat-grid">
+        <div class="cmd-box">
+          <div>
+            <div style="font-size:0.75rem; font-weight:700; text-transform:uppercase; color:var(--text-subtle); margin-bottom:4px;">1. Start Frontend (Port 3000)</div>
+            <code>cd frontend && npm run dev</code>
+          </div>
+          <button class="btn-icon" style="width:34px; height:34px; font-size:0.85rem;" onclick="copyRawUrl('cd frontend && npm run dev')" title="Copy command">📋</button>
+        </div>
+
+        <div class="cmd-box">
+          <div>
+            <div style="font-size:0.75rem; font-weight:700; text-transform:uppercase; color:var(--text-subtle); margin-bottom:4px;">2. Start Backend (Port 8000)</div>
+            <code>cd backend && python -m uvicorn main:app --reload --port 8000</code>
+          </div>
+          <button class="btn-icon" style="width:34px; height:34px; font-size:0.85rem;" onclick="copyRawUrl('cd backend && python -m uvicorn main:app --reload --port 8000')" title="Copy command">📋</button>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      Love Score Compatibility App • Localhost:3000 Navigation Portal Hub • Made with ❤️ for Couples
+    </footer>
+
+  </div>
+
+  <!-- Toast Element -->
+  <div id="toast">
+    <span>✨</span>
+    <span id="toastMsg">Link copied to clipboard!</span>
+  </div>
+
+  <!-- In-Page Live Route Preview Modal -->
+  <div class="modal-overlay" id="previewModal" onclick="closePreview(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>👁️ Live Preview:</span>
+          <span id="previewModalUrl" style="font-family:monospace; font-size:0.95rem; color:var(--ruby-red);"></span>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <a id="previewOpenNewTab" href="#" target="_blank" class="btn btn-secondary" style="padding:6px 14px; font-size:0.8rem;">Open in Full Tab ↗</a>
+          <button class="btn-icon" onclick="closePreviewModal()" style="width:36px; height:36px;">✕</button>
+        </div>
+      </div>
+      <iframe id="previewIframe" class="modal-iframe" src="about:blank"></iframe>
+    </div>
+  </div>
+
+  <script>
+    // State management
+    let currentPort = '3000';
+    let currentCategory = 'all';
+
+    // Spawn floating background ambient hearts
+    function initParticles() {
+      const container = document.getElementById('particlesContainer');
+      const hearts = ['❤️', '💖', '💕', '💘', '💗', '✨', '🌹'];
+      for (let i = 0; i < 24; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.fontSize = (Math.random() * 18 + 12) + 'px';
+        particle.style.animationDuration = (Math.random() * 12 + 10) + 's';
+        particle.style.animationDelay = (Math.random() * 10) + 's';
+        container.appendChild(particle);
+      }
+    }
+
+    // Dynamic Port Handling
+    const portInput = document.getElementById('portInput');
+    portInput.addEventListener('input', function() {
+      const val = this.value.trim();
+      if (val && !isNaN(val)) {
+        currentPort = val;
+        updateDynamicLinks();
+        checkAllServerStatus();
+      }
+    });
+
+    function getBaseUrl() {
+      return `http://localhost:${currentPort}`;
+    }
+
+    function updateDynamicLinks() {
+      const base = getBaseUrl();
+      document.querySelectorAll('.dynamic-link').forEach(link => {
+        const path = link.getAttribute('data-path');
+        link.href = base + path;
+      });
+      document.querySelectorAll('.dynamic-url').forEach(el => {
+        const path = el.getAttribute('data-path');
+        el.innerText = `${base}${path}`;
+      });
+    }
+
+    // Server Ping Checker
+    async function checkServer(url, timeoutMs = 2500) {
+      try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), timeoutMs);
+        // Mode 'no-cors' allows us to detect that the server is alive and accepting TCP/HTTP connections
+        await fetch(url, { mode: 'no-cors', signal: controller.signal });
+        clearTimeout(timeout);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+
+    async function checkAllServerStatus() {
+      // 1. Check Frontend Next.js Server
+      const feDot = document.getElementById('frontendDot');
+      const feText = document.getElementById('frontendStatusText');
+      feDot.className = 'status-dot';
+      feText.innerText = `Checking (${currentPort})...`;
+
+      const feAlive = await checkServer(getBaseUrl());
+      if (feAlive) {
+        feDot.className = 'status-dot online';
+        feText.innerText = `Next.js Online :${currentPort}`;
+      } else {
+        feDot.className = 'status-dot offline';
+        feText.innerText = `Next.js Offline :${currentPort}`;
+      }
+
+      // 2. Check Backend FastAPI Server
+      const beDot = document.getElementById('backendDot');
+      const beText = document.getElementById('backendStatusText');
+      beDot.className = 'status-dot';
+      beText.innerText = `Checking (8000)...`;
+
+      const beAlive = await checkServer('http://localhost:8000/api/health');
+      if (beAlive) {
+        beDot.className = 'status-dot online';
+        beText.innerText = `FastAPI Online :8000`;
+      } else {
+        beDot.className = 'status-dot offline';
+        beText.innerText = `FastAPI Offline :8000`;
+      }
+    }
+
+    // Toast notification
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      toastMsg.innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    // Copy Route URL
+    function copyRouteUrl(path) {
+      const fullUrl = getBaseUrl() + path;
+      navigator.clipboard.writeText(fullUrl).then(() => {
+        showToast(`Copied: ${fullUrl}`);
+      }).catch(() => {
+        showToast(`URL: ${fullUrl}`);
+      });
+    }
+
+    function copyRawUrl(raw) {
+      navigator.clipboard.writeText(raw).then(() => {
+        showToast(`Copied: ${raw}`);
+      }).catch(() => {
+        showToast(`Copied!`);
+      });
+    }
+
+    // Open All Pages in Tabs
+    function openAllPages() {
+      const paths = ['/', '/quiz', '/multiplayer', '/result', '/suggestions', '/profile'];
+      paths.forEach(p => {
+        window.open(getBaseUrl() + p, '_blank');
+      });
+      showToast('Opening all core pages in separate tabs!');
+    }
+
+    // In-page Preview Modal
+    function previewRoute(pathOrUrl, isFull = false) {
+      const modal = document.getElementById('previewModal');
+      const iframe = document.getElementById('previewIframe');
+      const urlText = document.getElementById('previewModalUrl');
+      const openBtn = document.getElementById('previewOpenNewTab');
+
+      const fullUrl = isFull ? pathOrUrl : (getBaseUrl() + pathOrUrl);
+      urlText.innerText = fullUrl;
+      openBtn.href = fullUrl;
+      iframe.src = fullUrl;
+      modal.classList.add('active');
+    }
+
+    function closePreviewModal() {
+      const modal = document.getElementById('previewModal');
+      const iframe = document.getElementById('previewIframe');
+      iframe.src = 'about:blank';
+      modal.classList.remove('active');
+    }
+
+    function closePreview(event) {
+      if (event.target === document.getElementById('previewModal')) {
+        closePreviewModal();
+      }
+    }
+
+    // Theme Toggle
+    function toggleTheme() {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const btn = document.getElementById('themeToggleBtn');
+      if (isDark) {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('love-score-portal-theme', 'light');
+        btn.innerText = '🌙';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('love-score-portal-theme', 'dark');
+        btn.innerText = '☀️';
+      }
+    }
+
+    // Category Filter
+    function setCategoryFilter(category, btnEl) {
+      currentCategory = category;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+      filterCards();
+    }
+
+    // Search & Filter cards
+    function filterCards() {
+      const q = document.getElementById('searchInput').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.route-card');
+      const sectionGroups = document.querySelectorAll('.section-group');
+
+      cards.forEach(card => {
+        const cat = card.getAttribute('data-category');
+        const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+        const text = card.innerText.toLowerCase();
+
+        const matchesCat = (currentCategory === 'all' || cat === currentCategory);
+        const matchesQuery = (!q || keywords.includes(q) || text.includes(q));
+
+        if (matchesCat && matchesQuery) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Show/hide section headings if all cards inside are hidden
+      sectionGroups.forEach(sec => {
+        const groupCat = sec.getAttribute('data-group');
+        const visibleCards = sec.querySelectorAll('.route-card:not([style*="display: none"])');
+        if (visibleCards.length === 0 || (currentCategory !== 'all' && currentCategory !== groupCat)) {
+          sec.style.display = 'none';
+        } else {
+          sec.style.display = 'block';
+        }
+      });
+    }
+
+    // Initialize on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      initParticles();
+      updateDynamicLinks();
+
+      // Check saved theme
+      const savedTheme = localStorage.getItem('love-score-portal-theme');
+      if (savedTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.getElementById('themeToggleBtn').innerText = '☀️';
+      }
+
+      // Check server connections
+      checkAllServerStatus();
+    });
+  </script>
+</body>
+</html>
