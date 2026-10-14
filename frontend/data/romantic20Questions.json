@@ -1,0 +1,582 @@
+[
+  {
+    "id": 1,
+    "category": "💖 Love",
+    "categoryIcon": "💖",
+    "type": "multiple_choice",
+    "typeLabel": "💖 Love & Romance",
+    "question": "What is your ultimate love language that makes you feel most cherished by your partner?",
+    "prompt_p1": "What is your ultimate love language that makes you feel most cherished by {name2}?",
+    "prompt_p2": "What is your ultimate love language that makes you feel most cherished by {name1}?",
+    "description": "Discover which heartfelt expression of love touches your soul the deepest.",
+    "options": [
+      {
+        "value": 1,
+        "text": "Heartfelt words of affirmation — Love notes, sweet compliments & hearing 'I'm proud of you' 💌"
+      },
+      {
+        "value": 2,
+        "text": "Quality uninterrupted time — Cozy evening talks, phone-free dates & romantic walks 🌙"
+      },
+      {
+        "value": 3,
+        "text": "Warm physical touch — Spontaneous forehead kisses, holding hands & tight comforting cuddles 🫂"
+      },
+      {
+        "value": 4,
+        "text": "Devoted acts of care — Thoughtful little surprises, making coffee & stepping in when tired ☕"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "category": "💖 Love",
+    "categoryIcon": "💖",
+    "type": "multiple_choice",
+    "typeLabel": "💖 Love & Romance",
+    "question": "What is your idea of the most romantic dream date night together?",
+    "prompt_p1": "What is your idea of the most romantic dream date night with {name2}?",
+    "prompt_p2": "What is your idea of the most romantic dream date night with {name1}?",
+    "description": "The perfect atmosphere to ignite passion, intimacy, and butterfly sparks.",
+    "options": [
+      {
+        "value": 1,
+        "text": "Candlelit dinner on a quiet moonlit beach with whispered secrets and ocean waves 🌊"
+      },
+      {
+        "value": 2,
+        "text": "Cozy living room camp-in with fairy lights, homemade dessert, and our favorite movie 🍕"
+      },
+      {
+        "value": 3,
+        "text": "Scenic mountain cabin retreat sipping hot chocolate by a crackling fireplace 🪵"
+      },
+      {
+        "value": 4,
+        "text": "Dressing up glamorous for a chic rooftop lounge overlooking twinkling city lights 🍸"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "category": "💖 Love",
+    "categoryIcon": "💖",
+    "type": "multiple_choice",
+    "typeLabel": "💖 Love & Romance",
+    "question": "What does true unconditional love mean to you in daily life?",
+    "prompt_p1": "What does true unconditional love mean to you in your bond with {name2}?",
+    "prompt_p2": "What does true unconditional love mean to you in your bond with {name1}?",
+    "description": "The foundational anchor that keeps your romantic devotion unshakable.",
+    "options": [
+      {
+        "value": 1,
+        "text": "Choosing each other every single morning, forgiving quickly and holding no grudges 🕊️"
+      },
+      {
+        "value": 2,
+        "text": "Being each other's safest emotional sanctuary where we are 100% accepted 🛡️"
+      },
+      {
+        "value": 3,
+        "text": "Inspiring each other's dreams and celebrating each other's happiness above all else 🌟"
+      },
+      {
+        "value": 4,
+        "text": "Standing as an unbreakable unified team against any challenge the world throws at us 💍"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "category": "💖 Love",
+    "categoryIcon": "💖",
+    "type": "multiple_choice",
+    "typeLabel": "💖 Love & Romance",
+    "question": "When did you first realize your feelings were turning into deep, lasting love?",
+    "prompt_p1": "When did you first realize your feelings for {name2} were turning into deep love?",
+    "prompt_p2": "When did you first realize your feelings for {name1} were turning into deep love?",
+    "description": "That magical turning point when love gently whispered to your heart.",
+    "options": [
+      {
+        "value": 1,
+        "text": "During an effortless deep talk that lasted until sunrise without noticing the time 🌅"
+      },
+      {
+        "value": 2,
+        "text": "The way they held my gaze with pure tenderness, making all my defenses melt away ✨"
+      },
+      {
+        "value": 3,
+        "text": "When they selflessly took care of me when I was vulnerable, tired, or feeling down 🌸"
+      },
+      {
+        "value": 4,
+        "text": "The quiet inner peace of realizing my heart had finally found its true home 🏡"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "category": "🥰 Emotions",
+    "categoryIcon": "🥰",
+    "type": "multiple_choice",
+    "typeLabel": "🥰 Emotional Bond",
+    "question": "When you've had a draining or stressful day, what brings you the greatest comfort?",
+    "prompt_p1": "When you've had an exhausting day, how can {name2} comfort you best?",
+    "prompt_p2": "When you've had an exhausting day, how can {name1} comfort you best?",
+    "description": "Understanding how your soul recharges in your partner's loving presence.",
+    "options": [
+      {
+        "value": 1,
+        "text": "A long, tight, silent hug with no questions asked—just feeling held and safe 🫂"
+      },
+      {
+        "value": 2,
+        "text": "A patient listening ear while I vent openly and feel deeply understood 🗣️"
+      },
+      {
+        "value": 3,
+        "text": "A sweet distraction—cooking comfort food together or watching something silly 🍜"
+      },
+      {
+        "value": 4,
+        "text": "A little quiet alone time to decompress, followed by soft cuddles and affection 🛋️"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "category": "🥰 Emotions",
+    "categoryIcon": "🥰",
+    "type": "multiple_choice",
+    "typeLabel": "🥰 Emotional Bond",
+    "question": "How do you naturally express vulnerability when feeling sensitive or anxious?",
+    "prompt_p1": "How do you naturally express vulnerability when feeling sensitive around {name2}?",
+    "prompt_p2": "How do you naturally express vulnerability when feeling sensitive around {name1}?",
+    "description": "Sharing your innermost tenderness builds an unbreakable emotional fortress.",
+    "options": [
+      {
+        "value": 1,
+        "text": "I communicate directly and seek honest, reassuring reassurance right away 💬"
+      },
+      {
+        "value": 2,
+        "text": "I retreat quietly to collect my thoughts before opening up with gentle words 🧘"
+      },
+      {
+        "value": 3,
+        "text": "I express it through touch—reaching for your hand, leaning on your shoulder 🤝"
+      },
+      {
+        "value": 4,
+        "text": "I write down my feelings in a thoughtful text or letter to express myself clearly 💌"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "category": "🥰 Emotions",
+    "categoryIcon": "🥰",
+    "type": "multiple_choice",
+    "typeLabel": "🥰 Emotional Bond",
+    "question": "When a disagreement occurs, what is your most sacred couple rule?",
+    "prompt_p1": "When a disagreement occurs, what rule is most vital for you and {name2}?",
+    "prompt_p2": "When a disagreement occurs, what rule is most vital for you and {name1}?",
+    "description": "How you preserve tenderness and emotional safety even in heated moments.",
+    "options": [
+      {
+        "value": 1,
+        "text": "Remembering it is Us vs. The Problem, never Partner vs. Partner 🤝"
+      },
+      {
+        "value": 2,
+        "text": "Taking a cool-down breather before speaking, never using hurtful words in anger 🕊️"
+      },
+      {
+        "value": 3,
+        "text": "Never going to sleep angry—always resolving with a hug and kiss before bed 🌙"
+      },
+      {
+        "value": 4,
+        "text": "Quickly offering sincere apologies and prioritizing our connection over winning 💖"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "category": "🥰 Emotions",
+    "categoryIcon": "🥰",
+    "type": "multiple_choice",
+    "typeLabel": "🥰 Emotional Bond",
+    "question": "Which emotional superpower of your partner do you treasure most?",
+    "prompt_p1": "Which emotional superpower of {name2} do you treasure most deeply?",
+    "prompt_p2": "Which emotional superpower of {name1} do you treasure most deeply?",
+    "description": "The unique light they bring into your life that softens your heart.",
+    "options": [
+      {
+        "value": 1,
+        "text": "Their unwavering belief in me, encouraging my self-worth whenever I doubt myself 🌟"
+      },
+      {
+        "value": 2,
+        "text": "The absolute emotional safety of knowing I am accepted with all my flaws 🛡️"
+      },
+      {
+        "value": 3,
+        "text": "Their infectious laughter and radiant humor that instantly brightens dark days ☀️"
+      },
+      {
+        "value": 4,
+        "text": "Their calm, grounding presence that brings stillness whenever life feels chaotic ⚓"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "category": "✨ Habits",
+    "categoryIcon": "✨",
+    "type": "multiple_choice",
+    "typeLabel": "✨ Daily Habits",
+    "question": "Which daily ritual makes your relationship feel most magical and connected?",
+    "prompt_p1": "Which daily ritual with {name2} makes your relationship feel most magical?",
+    "prompt_p2": "Which daily ritual with {name1} makes your relationship feel most magical?",
+    "description": "The sacred micro-moments that weave your love into the fabric of everyday life.",
+    "options": [
+      {
+        "value": 1,
+        "text": "Sleepy morning cuddles and a warm kiss before getting out of bed 🛌"
+      },
+      {
+        "value": 2,
+        "text": "Sharing a morning coffee or tea while asking 'How is your heart today?' ☕"
+      },
+      {
+        "value": 3,
+        "text": "Reconnecting over dinner without phones, recounting our day's highlights 🍽️"
+      },
+      {
+        "value": 4,
+        "text": "Whispering 'Goodnight, I love you' in a tight embrace before falling asleep 🌙"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "category": "✨ Habits",
+    "categoryIcon": "✨",
+    "type": "multiple_choice",
+    "typeLabel": "✨ Daily Habits",
+    "question": "How do you most love spending lazy, cozy Sunday afternoons together?",
+    "prompt_p1": "How do you most love spending lazy Sunday afternoons with {name2}?",
+    "prompt_p2": "How do you most love spending lazy Sunday afternoons with {name1}?",
+    "description": "Your couple downtime vibe when the outside world pauses.",
+    "options": [
+      {
+        "value": 1,
+        "text": "Lounging in comfy pajamas, snacking, reading, and drifting in and out of naps 😴"
+      },
+      {
+        "value": 2,
+        "text": "Baking yummy treats or cooking an elaborate meal together while singing to music 🧁"
+      },
+      {
+        "value": 3,
+        "text": "Taking a peaceful stroll in nature or through cozy streets holding hands 🍃"
+      },
+      {
+        "value": 4,
+        "text": "An impulsive mini-road trip to check out a quaint café, thrift shop, or bookstore 🚗"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "category": "✨ Habits",
+    "categoryIcon": "✨",
+    "type": "multiple_choice",
+    "typeLabel": "✨ Daily Habits",
+    "question": "Which adorable quirky habit brings the biggest smile to your face?",
+    "prompt_p1": "Which adorable quirky habit between you and {name2} brings the biggest smile?",
+    "prompt_p2": "Which adorable quirky habit between you and {name1} brings the biggest smile?",
+    "description": "The secret playful mannerisms that belong exclusively to your love story.",
+    "options": [
+      {
+        "value": 1,
+        "text": "Inventing silly pet names and goofy secret vocabulary that only we understand 🐾"
+      },
+      {
+        "value": 2,
+        "text": "Playful kitchen dance routines, random tickle attacks, and goofy faces 💃"
+      },
+      {
+        "value": 3,
+        "text": "Stealing hoodies, blankets, and cozy clothes because they smell like them 🧥"
+      },
+      {
+        "value": 4,
+        "text": "Sending hilarious memes, couple reels, and funny reaction selfies all day 📱"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "category": "✨ Habits",
+    "categoryIcon": "✨",
+    "type": "multiple_choice",
+    "typeLabel": "✨ Daily Habits",
+    "question": "When organizing daily life and chores, what is your ideal couple dynamic?",
+    "prompt_p1": "When organizing daily life with {name2}, what is your ideal couple dynamic?",
+    "prompt_p2": "When organizing daily life with {name1}, what is your ideal couple dynamic?",
+    "description": "How you seamlessly balance everyday responsibilities with laughter and harmony.",
+    "options": [
+      {
+        "value": 1,
+        "text": "Divide and conquer with upbeat music, turning chore time into fun team time 🎵"
+      },
+      {
+        "value": 2,
+        "text": "Working side-by-side on everything together so neither person ever feels alone 🧼"
+      },
+      {
+        "value": 3,
+        "text": "Naturally stepping up to handle tasks when the other person is busy or fatigued 💖"
+      },
+      {
+        "value": 4,
+        "text": "A relaxed, flexible flow that never stresses over minor messes or perfection 🧘"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "category": "📸 Memories",
+    "categoryIcon": "📸",
+    "type": "multiple_choice",
+    "typeLabel": "📸 Cherished Memories",
+    "question": "What is your most unforgettable heart-fluttering memory of your early days together?",
+    "prompt_p1": "What is your most unforgettable early memory with {name2}?",
+    "prompt_p2": "What is your most unforgettable early memory with {name1}?",
+    "description": "Revisiting the first sparks that started this wonderful romantic journey.",
+    "options": [
+      {
+        "value": 1,
+        "text": "The nervous, electric excitement right before our very first kiss 💋"
+      },
+      {
+        "value": 2,
+        "text": "That first time we laughed so uncontrollably our stomachs hurt and eyes watered 😂"
+      },
+      {
+        "value": 3,
+        "text": "The unforgettable moment across the room where our eyes met and the world froze 👁️"
+      },
+      {
+        "value": 4,
+        "text": "Staying up all night sharing childhood secrets, deepest dreams, and fears 🌌"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "category": "📸 Memories",
+    "categoryIcon": "📸",
+    "type": "multiple_choice",
+    "typeLabel": "📸 Cherished Memories",
+    "question": "If you could freeze and replay one shared memory in slow motion, which would it be?",
+    "prompt_p1": "If you could replay one memory with {name2} in slow motion, which would it be?",
+    "prompt_p2": "If you could replay one memory with {name1} in slow motion, which would it be?",
+    "description": "A cinematic golden memory etched permanently into your relationship heart.",
+    "options": [
+      {
+        "value": 1,
+        "text": "Our first romantic getaway or spontaneous road trip adventure together ✈️"
+      },
+      {
+        "value": 2,
+        "text": "A rainy day when all plans were canceled and we stayed wrapped in blankets all day 🌧️"
+      },
+      {
+        "value": 3,
+        "text": "A big milestone celebration where we achieved a goal and embraced in triumph 🏆"
+      },
+      {
+        "value": 4,
+        "text": "A completely ordinary quiet evening that felt extraordinarily warm and perfect 🕯️"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "category": "📸 Memories",
+    "categoryIcon": "📸",
+    "type": "multiple_choice",
+    "typeLabel": "📸 Cherished Memories",
+    "question": "How do you love preserving your love story's precious milestones and memories?",
+    "prompt_p1": "How do you most love preserving memories with {name2}?",
+    "prompt_p2": "How do you most love preserving memories with {name1}?",
+    "description": "Your favorite way of keeping your relationship time-capsule alive.",
+    "options": [
+      {
+        "value": 1,
+        "text": "A secret shared photo album filled with candid, unposed, goofy moments 📸"
+      },
+      {
+        "value": 2,
+        "text": "A memory box of ticket stubs, handwritten notes, boarding passes & trinkets 📦"
+      },
+      {
+        "value": 3,
+        "text": "Framed photo-booth strips and beautiful portraits displayed around our space 🖼️"
+      },
+      {
+        "value": 4,
+        "text": "A couple scrapbook or journal documenting funny quotes, dates, and milestones 📖"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "category": "📸 Memories",
+    "categoryIcon": "📸",
+    "type": "multiple_choice",
+    "typeLabel": "📸 Cherished Memories",
+    "question": "If you could bottle up one feeling from your relationship so far, which would it be?",
+    "prompt_p1": "If you could bottle up one feeling from loving {name2}, which would it be?",
+    "prompt_p2": "If you could bottle up one feeling from loving {name1}, which would it be?",
+    "description": "The pure emotional essence of your connection that you never want to fade.",
+    "options": [
+      {
+        "value": 1,
+        "text": "The comforting warmth of melting into each other's arms after time apart 🫂"
+      },
+      {
+        "value": 2,
+        "text": "The thrilling rush of anticipation whenever we're about to see each other ⚡"
+      },
+      {
+        "value": 3,
+        "text": "The peaceful ease of being completely silent together without any awkwardness 🍃"
+      },
+      {
+        "value": 4,
+        "text": "The overwhelming awe and gratitude that 'I get to love this incredible soul' 💖"
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "category": "🌹 Future Goals",
+    "categoryIcon": "🌹",
+    "type": "multiple_choice",
+    "typeLabel": "🌹 Future Goals",
+    "question": "What is your biggest shared dream for the next chapter of your love story?",
+    "prompt_p1": "What is your biggest shared dream with {name2} for your future chapter?",
+    "prompt_p2": "What is your biggest shared dream with {name1} for your future chapter?",
+    "description": "Looking forward toward the exciting horizons waiting for you both.",
+    "options": [
+      {
+        "value": 1,
+        "text": "Exploring the world together, collecting passport stamps and breathtaking vistas 🗺️"
+      },
+      {
+        "value": 2,
+        "text": "Building our dream cozy sanctuary filled with warm lights, plants, and pets 🏡"
+      },
+      {
+        "value": 3,
+        "text": "Celebrating major career and personal triumphs as each other's #1 cheerleader 🎯"
+      },
+      {
+        "value": 4,
+        "text": "Deepening our spiritual and emotional connection to become truly inseparable 💍"
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "category": "🌹 Future Goals",
+    "categoryIcon": "🌹",
+    "type": "multiple_choice",
+    "typeLabel": "🌹 Future Goals",
+    "question": "Where do you envision living your happiest, most peaceful life together?",
+    "prompt_p1": "Where do you envision living your happiest life together with {name2}?",
+    "prompt_p2": "Where do you envision living your happiest life together with {name1}?",
+    "description": "The picturesque backdrop to your happily ever after.",
+    "options": [
+      {
+        "value": 1,
+        "text": "A sunlit modern apartment in a vibrant city close to arts, dining, and culture 🏙️"
+      },
+      {
+        "value": 2,
+        "text": "A warm suburban home with a blooming garden, backyard patio, and starlit nights 🌳"
+      },
+      {
+        "value": 3,
+        "text": "A serene coastal cottage with salty ocean breezes and morning beach walks 🏖️"
+      },
+      {
+        "value": 4,
+        "text": "An adventurous nomadic life, exploring new cities and scenic landscapes 🚐"
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "category": "🌹 Future Goals",
+    "categoryIcon": "🌹",
+    "type": "multiple_choice",
+    "typeLabel": "🌹 Future Goals",
+    "question": "When you look back on your relationship decades from now, what matters most?",
+    "prompt_p1": "Decades from now, what will matter most about your journey with {name2}?",
+    "prompt_p2": "Decades from now, what will matter most about your journey with {name1}?",
+    "description": "The enduring legacy of love and companionship you wish to leave behind.",
+    "options": [
+      {
+        "value": 1,
+        "text": "That we never stopped laughing, flirting, and having joyful fun like teenagers 👵👴"
+      },
+      {
+        "value": 2,
+        "text": "That we stood steadfast through every storm and never gave up on each other ⚓"
+      },
+      {
+        "value": 3,
+        "text": "That we cultivated a warm, loving family and left a legacy of deep kindness 🏡"
+      },
+      {
+        "value": 4,
+        "text": "That we lived boldly, took exciting risks, and created an unforgettable story 🌟"
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "category": "🌹 Future Goals",
+    "categoryIcon": "🌹",
+    "type": "multiple_choice",
+    "typeLabel": "🌹 Future Goals",
+    "question": "What is your eternal romantic promise to your partner for all time?",
+    "prompt_p1": "What is your eternal romantic promise to {name2}?",
+    "prompt_p2": "What is your eternal romantic promise to {name1}?",
+    "description": "The sacred vow that seals your Forever Us couple journey.",
+    "options": [
+      {
+        "value": 1,
+        "text": "I promise to choose you, respect you, and fall in love with you anew every day 💍"
+      },
+      {
+        "value": 2,
+        "text": "I promise to be your calm anchor in storms and your loudest cheerleader in joy 🛡️"
+      },
+      {
+        "value": 3,
+        "text": "I promise to listen with an open heart and never let pride stand in our way 🕊️"
+      },
+      {
+        "value": 4,
+        "text": "I promise to keep dating you, holding your hand, and making you feel treasured forever ❤️"
+      }
+    ]
+  }
+]

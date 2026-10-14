@@ -9,7 +9,20 @@ import { ref, set, update, onValue, off, get } from "firebase/database";
 import { getQuestionsForMode, getRandomQuestions, calculateSmartScore } from "./gameEngine";
 import { saveGameHistory } from "./profileStorage";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+export function getApiBaseUrl() {
+  if (process.env.NEXT_PUBLIC_API_URL) {
+    return process.env.NEXT_PUBLIC_API_URL.replace(/\/$/, "");
+  }
+  if (typeof window !== "undefined") {
+    // In local development, connect to FastAPI server on port 8000
+    if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+      return "http://localhost:8000";
+    }
+    // In production (Netlify or custom domain), use same origin (/api handled by Netlify Functions)
+    return window.location.origin;
+  }
+  return "http://localhost:8000";
+}
 
 export function generateRoomCode() {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -54,7 +67,12 @@ export async function createRoom(hostName, hostAvatar, mode = "forever_us_20") {
     return { success: true, room: initialRoom, source: "firebase" };
   }
 
-  // Fallback to FastAPI backend
+  // Fallback to backend
+  const API_BASE = getApiBaseUrl();
+  if (!API_BASE) {
+    return { success: true, room: initialRoom, source: "local" };
+  }
+
   try {
     const res = await fetch(`${API_BASE}/api/room/create`, {
       method: "POST",
@@ -115,6 +133,13 @@ export async function joinRoom(roomCode, partnerName, partnerAvatar) {
   }
 
   // Backend fallback
+  const API_BASE = getApiBaseUrl();
+  if (!API_BASE) {
+    throw new Error(
+      `Room '${cleanCode}' could not be reached. Please verify your connection or check that Firebase Realtime Database is configured.`
+    );
+  }
+
   const res = await fetch(`${API_BASE}/api/room/join`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -161,27 +186,38 @@ export function subscribeToRoom(roomCode, onUpdate, onError) {
   }
 
   // Backend WebSocket & Polling fallback
+  const API_BASE = getApiBaseUrl();
+  if (!API_BASE) {
+    return () => {};
+  }
+
   let isClosed = false;
   let ws = null;
   let pollInterval = null;
 
   try {
-    const wsProto = window.location.protocol === "https:" ? "wss:" : "ws:";
+    const wsProto = API_BASE.startsWith("https") ? "wss:" : "ws:";
     const host = API_BASE.replace(/^https?:\/\//, "");
-    ws = new WebSocket(`${wsProto}//${host}/ws/room/${cleanCode}`);
 
-    ws.onmessage = (event) => {
-      try {
-        const payload = JSON.parse(event.data);
-        if (payload.type === "ROOM_UPDATE") {
-          onUpdate(payload.room);
-        }
-      } catch (e) {}
-    };
+    // Connect to WebSocket if host is not a serverless domain like netlify.app
+    if (!host.includes("netlify.app")) {
+      ws = new WebSocket(`${wsProto}//${host}/ws/room/${cleanCode}`);
 
-    ws.onerror = () => {
+      ws.onmessage = (event) => {
+        try {
+          const payload = JSON.parse(event.data);
+          if (payload.type === "ROOM_UPDATE") {
+            onUpdate(payload.room);
+          }
+        } catch (e) {}
+      };
+
+      ws.onerror = () => {
+        startPolling();
+      };
+    } else {
       startPolling();
-    };
+    }
   } catch (err) {
     startPolling();
   }
@@ -229,6 +265,9 @@ export async function updatePlayerProgress(roomCode, playerKey, qIndex, answers)
     return;
   }
 
+  const API_BASE = getApiBaseUrl();
+  if (!API_BASE) return;
+
   try {
     await fetch(`${API_BASE}/api/room/${cleanCode}/update`, {
       method: "POST",
@@ -257,6 +296,9 @@ export async function updateRoomQuestions(roomCode, updatedQuestions) {
     } catch (e) {}
     return;
   }
+
+  const API_BASE = getApiBaseUrl();
+  if (!API_BASE) return;
 
   try {
     await fetch(`${API_BASE}/api/room/${cleanCode}/questions`, {
@@ -322,6 +364,11 @@ export async function completePlayerQuiz(roomCode, playerKey, finalAnswers, curr
   }
 
   // Backend fallback
+  const API_BASE = getApiBaseUrl();
+  if (!API_BASE) {
+    return calculatedResult;
+  }
+
   try {
     const res = await fetch(`${API_BASE}/api/room/${cleanCode}/complete`, {
       method: "POST",
@@ -369,6 +416,9 @@ export async function replayRoom(roomCode, currentRoom) {
     await update(roomRef, resetData);
     return;
   }
+
+  const API_BASE = getApiBaseUrl();
+  if (!API_BASE) return;
 
   try {
     await fetch(`${API_BASE}/api/room/${cleanCode}/replay`, {

@@ -117,19 +117,20 @@ export default function Navbar() {
             style={{
               display: "inline-flex",
               alignItems: "center",
-              gap: "6px",
-              padding: "7px 14px",
+              gap: "5px",
+              padding: "7px 12px",
               borderRadius: "9999px",
               background: "linear-gradient(135deg, rgba(255, 8, 68, 0.12) 0%, rgba(142, 5, 194, 0.16) 100%)",
               border: "1.5px solid var(--ruby-red)",
               color: "var(--ruby-red)",
-              fontSize: "0.85rem",
+              fontSize: "0.82rem",
               fontWeight: 700,
               textDecoration: "none",
+              whiteSpace: "nowrap",
               transition: "transform 0.2s ease",
             }}
           >
-            <span>💌 Suggestion Box</span>
+            <span>💌 Suggestions</span>
           </Link>
 
           <Link
@@ -137,19 +138,20 @@ export default function Navbar() {
             style={{
               display: "inline-flex",
               alignItems: "center",
-              gap: "6px",
-              padding: "7px 14px",
+              gap: "5px",
+              padding: "7px 12px",
               borderRadius: "9999px",
               background: "rgba(255, 255, 255, 0.8)",
               border: "1px solid var(--card-border)",
               color: "var(--text-dark)",
-              fontSize: "0.85rem",
+              fontSize: "0.82rem",
               fontWeight: 700,
               textDecoration: "none",
+              whiteSpace: "nowrap",
               transition: "transform 0.2s ease",
             }}
           >
-            <span>📱 Couple Quiz</span>
+            <span>📱 Quiz</span>
           </Link>
 
           {/* Sound Mute / Unmute Toggle */}

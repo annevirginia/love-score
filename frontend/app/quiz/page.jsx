@@ -41,11 +41,13 @@ export default function QuizPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    const saved1 = localStorage.getItem("love-score-name1");
-    const saved2 = localStorage.getItem("love-score-name2");
+    let saved1 = localStorage.getItem("love-score-name1");
+    let saved2 = localStorage.getItem("love-score-name2");
     if (!saved1 || !saved2) {
-      router.push("/");
-      return;
+      saved1 = "Romeo";
+      saved2 = "Juliet";
+      localStorage.setItem("love-score-name1", saved1);
+      localStorage.setItem("love-score-name2", saved2);
     }
     setName1(saved1);
     setName2(saved2);
@@ -55,7 +57,7 @@ export default function QuizPage() {
     const mode = localStorage.getItem("love-score-mode") || "forever_us_20";
     setGameMode(mode);
 
-    // Load exactly 20 questions
+    // Load exactly 20 romantic couple questions
     const generatedQs = getQuestionsForMode(mode, 20);
     setQuestions(generatedQs);
     setAnswers1(Array(generatedQs.length).fill(null));
@@ -137,9 +139,13 @@ export default function QuizPage() {
       playNextQuestion();
       setCurrentQIndex((prev) => prev + 1);
     } else {
-      // Completed all 20 questions for this turn! Transition to Partner Passage step
+      // Completed all 20 questions for this turn!
       playCelebration();
-      setIsWritingPassage(true);
+      if (turn === 1) {
+        setIsHandoff(true);
+      } else {
+        handleSubmitQuiz();
+      }
     }
   };
 
@@ -150,36 +156,21 @@ export default function QuizPage() {
     }
   };
 
-  // Turn 1 completes passage -> handoff to Turn 2
-  const handlePassage1Submit = (passageObj) => {
-    setPassage1(passageObj);
-    setIsWritingPassage(false);
-    setIsHandoff(true);
-  };
-
-  // Turn 2 completes passage -> submit full quiz
-  const handlePassage2Submit = (passageObj) => {
-    setPassage2(passageObj);
-    setIsWritingPassage(false);
-    handleSubmitQuiz(passage1, passageObj);
-  };
-
   const handleStartPerson2 = () => {
     playCelebration();
     setIsHandoff(false);
     setTurn(2);
     setCurrentQIndex(0);
-    setIsWritingPassage(false);
   };
 
-  const handleSubmitQuiz = async (finalP1, finalP2) => {
+  const handleSubmitQuiz = async () => {
     setIsSubmitting(true);
 
     const clean1 = answers1.map((a) => (a === null ? 1 : a));
     const clean2 = answers2.map((a) => (a === null ? 1 : a));
 
-    // Calculate smart score across all 20 questions
-    const resultData = calculateSmartScore(questions, clean1, clean2);
+    // Calculate smart score across all 20 questions with personalized message
+    const resultData = calculateSmartScore(questions, clean1, clean2, name1, name2);
 
     const fullResult = {
       ...resultData,
@@ -191,8 +182,8 @@ export default function QuizPage() {
       answers1: clean1,
       answers2: clean2,
       questions,
-      passage1: finalP1 || passage1,
-      passage2: finalP2 || passage2,
+      passage1: passage1 || null,
+      passage2: passage2 || null,
     };
 
     localStorage.setItem("love-score-result", JSON.stringify(fullResult));
@@ -200,7 +191,7 @@ export default function QuizPage() {
 
     setTimeout(() => {
       router.push("/result");
-    }, 1500);
+    }, 1200);
   };
 
   // 1. Calculation & Loading screen

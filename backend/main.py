@@ -40,12 +40,19 @@ allowed_origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://localhost:3001",
-    "*"  # Allows flexible testing across mobile devices and ports
+    "https://lovematchscore.netlify.app",
 ]
+EXTRA_ORIGINS = os.getenv("ALLOWED_ORIGINS", "")
+if EXTRA_ORIGINS:
+    for orig in EXTRA_ORIGINS.split(","):
+        cleaned = orig.strip()
+        if cleaned and cleaned not in allowed_origins:
+            allowed_origins.append(cleaned)
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,
+    allow_origin_regex=r"https://.*\.netlify\.app|https://.*\.web\.app|https://.*\.firebaseapp\.com|https://.*\.run\.app|https://.*\.onrender\.com|https://.*\.up\.railway\.app|http://localhost:\d+|http://127\.0\.0\.1:\d+",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -200,6 +207,20 @@ def get_room(code: str):
     return ROOMS[code]
 
 
+class UpdateQuestionsRequest(BaseModel):
+    questions: List[Dict[str, Any]]
+
+
+@app.post("/api/room/{code}/questions")
+async def update_room_questions(code: str, data: UpdateQuestionsRequest):
+    code = code.upper().strip()
+    if code not in ROOMS:
+        raise HTTPException(status_code=404, detail="Room not found")
+    ROOMS[code]["questions"] = data.questions
+    await broadcast_room_update(code)
+    return ROOMS[code]
+
+
 class UpdateProgressRequest(BaseModel):
     player_key: str  # 'player1' or 'player2'
     progress: int
@@ -211,6 +232,8 @@ async def update_room_progress(code: str, data: UpdateProgressRequest):
     code = code.upper().strip()
     if code not in ROOMS:
         raise HTTPException(status_code=404, detail="Room not found")
+    if data.player_key not in ("player1", "player2"):
+        raise HTTPException(status_code=400, detail="Invalid player_key. Must be 'player1' or 'player2'")
 
     room = ROOMS[code]
     if data.player_key in room and room[data.player_key]:
@@ -233,13 +256,15 @@ async def complete_quiz(code: str, data: CompleteQuizRequest):
     code = code.upper().strip()
     if code not in ROOMS:
         raise HTTPException(status_code=404, detail="Room not found")
+    if data.player_key not in ("player1", "player2"):
+        raise HTTPException(status_code=400, detail="Invalid player_key. Must be 'player1' or 'player2'")
 
     room = ROOMS[code]
     if data.player_key in room and room[data.player_key]:
         room[data.player_key]["completed"] = True
         room[data.player_key]["answers"] = data.answers
         room[data.player_key]["passage"] = data.passage
-        room[data.player_key]["progress"] = 20
+        room[data.player_key]["progress"] = len(room.get("questions") or []) or 20
 
     # Check if both completed
     p1 = room.get("player1", {})

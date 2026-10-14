@@ -23,7 +23,7 @@ import SealedPassageReveal from "../../components/SealedPassageReveal";
 import CoupleCoachInsights from "../../components/CoupleCoachInsights";
 import QuestionComparisonExplorer from "../../components/QuestionComparisonExplorer";
 import CoupleStatusCard from "../../components/CoupleStatusCard";
-import fallbackQuestions from "../../data/questions.json";
+import fallbackQuestions from "../../data/romantic20Questions.json";
 import { UNIFIED_MODULE } from "../../lib/gameEngine";
 import { playOptionClick, playCelebration } from "../../lib/audio";
 
@@ -307,28 +307,47 @@ export default function ResultPage() {
           avatar2={avatar2}
         />
 
-        {/* Romantic Tier Message */}
+        {/* Romantic Personalized Love Message */}
         <div
           style={{
-            maxWidth: "540px",
-            margin: "18px auto 0",
-            padding: "16px 22px",
-            background: "rgba(255, 255, 255, 0.85)",
-            borderRadius: "18px",
-            border: "1.5px solid var(--card-border-subtle)",
+            maxWidth: "620px",
+            margin: "20px auto 0",
+            padding: "20px 24px",
+            background: "linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 240, 246, 0.95) 100%)",
+            borderRadius: "22px",
+            border: "2px solid rgba(255, 8, 68, 0.35)",
+            boxShadow: "0 8px 24px rgba(255, 8, 68, 0.12)",
           }}
         >
+          <div
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+              color: "var(--ruby-red)",
+              fontWeight: 800,
+              fontSize: "0.82rem",
+              textTransform: "uppercase",
+              letterSpacing: "1px",
+              marginBottom: "8px",
+            }}
+          >
+            <Sparkles size={14} />
+            <span>Personalized Love Message</span>
+            <Sparkles size={14} />
+          </div>
           <p
             style={{
-              fontSize: "1.3rem",
+              fontSize: "1.18rem",
               fontFamily: "var(--font-heading)",
               color: "var(--ruby-red)",
-              margin: "0 0 4px",
+              lineHeight: 1.55,
+              margin: "0 0 6px",
             }}
           >
             &ldquo;{message}&rdquo;
           </p>
-          <span style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>
+          <span style={{ fontSize: "0.84rem", color: "var(--text-muted)", fontWeight: 500 }}>
             Saved to your Relationship Memory Wall &amp; History! 🌹
           </span>
         </div>

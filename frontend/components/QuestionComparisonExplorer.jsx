@@ -234,7 +234,9 @@ export default function QuestionComparisonExplorer({
 
                   <div>
                     <span style={{ fontSize: "0.94rem", fontWeight: 700, color: "var(--text-dark)" }}>
-                      {item.q.prompt_p1.replace(/\{name1\}/g, name1).replace(/\{name2\}/g, name2)}
+                      {(item.q.prompt_p1 || item.q.question || "")
+                        .replace(/\{name1\}/g, name1)
+                        .replace(/\{name2\}/g, name2)}
                     </span>
                     <span style={{ display: "block", fontSize: "0.74rem", color: "var(--text-muted)", marginTop: "2px" }}>
                       {item.q.category} • {item.q.typeLabel || item.q.type}

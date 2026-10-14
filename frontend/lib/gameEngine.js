@@ -6,13 +6,16 @@
  */
 
 import allQuestions from "../data/questions.json" with { type: "json" };
+import romantic20Questions from "../data/romantic20Questions.json" with { type: "json" };
 import { getCustomQuestions } from "./profileStorage.js";
+
+export const ROMANTIC_QUIZ_20_QUESTIONS = romantic20Questions;
 
 export const UNIFIED_MODULE = {
   id: "forever_us_20",
   title: "Forever Us — 20 Romantic Questions",
   badge: "💍 The Complete Journey",
-  description: "20 multi-type couple challenges: Romantic Scenarios, This-or-That, 1–5 Love Scales, Who's More Likely, and Secret Partner Suggestions.",
+  description: "20 four-choice romantic couple questions covering Love, Emotions, Habits, Memories, and Future Goals with live score & glowing heart.",
   icon: "❤️",
   color: "#FF0844",
   gradient: "linear-gradient(135deg, #FF0844 0%, #FF2E74 100%)",
@@ -190,18 +193,58 @@ export function getRandomQuestions(count = 15, options = {}) {
 }
 
 /**
- * Returns dynamic randomized questions for the quiz mode.
+ * Returns canonical 20 romantic couple quiz questions covering
+ * Love, Emotions, Habits, Memories, and Future Goals with 4 options each.
  */
-export function getQuestionsForMode(_mode = "forever_us_20", count = 15) {
-  return getRandomQuestions(count);
+export function getRomanticCoupleQuizQuestions() {
+  return [...ROMANTIC_QUIZ_20_QUESTIONS];
+}
+
+/**
+ * Returns dynamic questions for the quiz mode.
+ * Defaults to the 20-question Romantic Couple Quiz.
+ */
+export function getQuestionsForMode(_mode = "forever_us_20", count = 20, options = {}) {
+  if (options.useRandomPool) {
+    return getRandomQuestions(count, options);
+  }
+  if (_mode === "forever_us_20" || _mode === "romantic_couple_20" || count === 20) {
+    return getRomanticCoupleQuizQuestions();
+  }
+  return getRandomQuestions(count, options);
+}
+
+/**
+ * Generates an emotionally resonant personalized love message tailored
+ * to the couple's compatibility score and names.
+ */
+export function getPersonalizedLoveMessage(score, name1 = "Partner 1", name2 = "Partner 2") {
+  const p1 = name1 || "Partner 1";
+  const p2 = name2 || "Partner 2";
+
+  if (score >= 90) {
+    return `${p1} & ${p2}, your souls beat to the exact same romantic melody! Your extraordinary 100% synchronicity in love, emotions, daily habits, and future goals proves you are destined to build an unforgettable eternity together. 💍✨`;
+  }
+  if (score >= 75) {
+    return `${p1} & ${p2}, you share a rare and breathtaking romantic chemistry! You listen with your hearts, cherish the same sweet daily habits, and stand by each other as the ultimate dream team. 💖🌹`;
+  }
+  if (score >= 60) {
+    return `${p1} & ${p2}, your connection is a gorgeous blend of harmony and exciting chemistry! Where one brings calm, the other brings fire—your balance keeps every single day magical and alive. 🌷✨`;
+  }
+  if (score >= 45) {
+    return `${p1} & ${p2}, they say opposites attract, and you two prove it brilliantly! Your unique individual perspectives bring boundless adventure, endless laughter, and continuous growth to your love story. 🔥💫`;
+  }
+  return `${p1} & ${p2}, two distinct worlds colliding into a fun, passionate romance! Enjoy more cozy date nights, share more quiet hugs, and keep uncovering the delightful mystery of each other. 💘😂`;
 }
 
 /**
  * Smart Love Score calculation based on question types and partner answers.
+ * Compares both partners' answers across all 20 questions, computes 0-100% compatibility,
+ * generates a category breakdown, and crafts a personalized love message.
  */
-export function calculateSmartScore(questions, answers1, answers2) {
+export function calculateSmartScore(questions, answers1, answers2, name1 = "Partner 1", name2 = "Partner 2") {
   const activeQuestions =
-    questions && questions.length > 0 ? questions : allQuestions.slice(0, 15);
+    questions && questions.length > 0 ? questions : ROMANTIC_QUIZ_20_QUESTIONS;
   const total = Math.min(activeQuestions.length, answers1.length, answers2.length);
   if (total === 0) return { score: 75, level: RESULT_LEVELS[1] };
 
@@ -215,13 +258,26 @@ export function calculateSmartScore(questions, answers1, answers2) {
     const a2 = answers2[i] !== null && answers2[i] !== undefined ? answers2[i] : 1;
     let match = 1.0;
 
-    if (q.type === "who_is_more_likely") {
+    if (q.type === "multiple_choice" || (q.options && q.options.length === 4)) {
       if (a1 === a2) {
-        match = 1.0; // Both picked the same person or both
-      } else if (a1 === 3 || a2 === 3) {
-        match = 0.70; // One picked both, other nominated a person
+        match = 1.0; // 100% exact match
       } else {
-        match = 0.30; // Different nominations
+        const diff = Math.abs(a1 - a2);
+        if (diff === 1) {
+          match = 0.65; // Harmonizing complementary choices
+        } else if (diff === 2) {
+          match = 0.40; // Diverse balance
+        } else {
+          match = 0.15; // Unique perspectives / opposites
+        }
+      }
+    } else if (q.type === "who_is_more_likely") {
+      if (a1 === a2) {
+        match = 1.0;
+      } else if (a1 === 3 || a2 === 3) {
+        match = 0.70;
+      } else {
+        match = 0.30;
       }
     } else if (q.type === "this_or_that") {
       match = a1 === a2 ? 1.0 : 0.40;
@@ -229,7 +285,6 @@ export function calculateSmartScore(questions, answers1, answers2) {
       const diff = Math.abs(a1 - a2);
       match = Math.max(0, 1 - diff / 4.0);
     } else {
-      // 4-choice question (scenario_choice or partner_perspective)
       const diff = Math.abs(a1 - a2);
       match = Math.max(0, 1 - diff / 3.0);
     }
@@ -238,7 +293,7 @@ export function calculateSmartScore(questions, answers1, answers2) {
     questionMatches.push(Math.round(match * 100));
 
     // Category tracking
-    const cat = q.category || "💖 Romantic Passion & Chemistry";
+    const cat = q.category || "💖 Love";
     if (!categoryBuckets[cat]) {
       categoryBuckets[cat] = [];
     }
@@ -248,7 +303,7 @@ export function calculateSmartScore(questions, answers1, answers2) {
   const finalScore = Math.max(0, Math.min(100, Math.round((totalMatchPoints / total) * 100)));
 
   // Identify result level
-  let resultLevel = RESULT_LEVELS[2];
+  let resultLevel = RESULT_LEVELS[RESULT_LEVELS.length - 1];
   for (const lvl of RESULT_LEVELS) {
     if (finalScore >= lvl.min && finalScore <= lvl.max) {
       resultLevel = lvl;
@@ -256,19 +311,22 @@ export function calculateSmartScore(questions, answers1, answers2) {
     }
   }
 
-  // Calculate category averages
+  // Calculate category averages (0-100%)
   const categories = {};
   for (const [cat, matches] of Object.entries(categoryBuckets)) {
     const avg = matches.reduce((s, m) => s + m, 0) / matches.length;
     categories[cat] = Math.round(avg * 100);
   }
 
+  // Generate personalized love message
+  const personalizedMessage = getPersonalizedLoveMessage(finalScore, name1, name2);
+
   return {
     score: finalScore,
     tier: resultLevel.tier,
     title: resultLevel.title,
     emoji: resultLevel.emoji,
-    message: resultLevel.message,
+    message: personalizedMessage || resultLevel.message,
     badgeId: resultLevel.badgeId,
     badgeName: resultLevel.badgeName,
     categories,

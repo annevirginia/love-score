@@ -711,9 +711,9 @@ export default function QuestionCard({
             type="button"
             onClick={onPrev}
             className="heart-btn heart-btn-secondary"
-            style={{ padding: "12px 22px", fontSize: "0.95rem" }}
+            style={{ padding: "12px 24px", fontSize: "0.95rem" }}
           >
-            <ArrowLeft size={16} /> Back
+            <ArrowLeft size={16} /> <span>Previous</span>
           </button>
         )}
 
@@ -759,9 +759,21 @@ export default function QuestionCard({
             opacity: selectedOption ? 1 : 0.5,
             cursor: selectedOption ? "pointer" : "not-allowed",
             padding: "14px 36px",
+            background: isLastQuestion
+              ? "linear-gradient(135deg, #FF0844 0%, #D80032 100%)"
+              : undefined,
+            boxShadow: isLastQuestion && selectedOption
+              ? "0 8px 24px rgba(255, 8, 68, 0.45)"
+              : undefined,
           }}
         >
-          <span>{isLastQuestion ? "Complete Turn 💕" : "Next Question"}</span>
+          <span>
+            {isLastQuestion
+              ? activePlayer === 1
+                ? "Submit Turn 1 💕"
+                : "Submit Quiz & Reveal Love Score ❤️"
+              : "Next Question"}
+          </span>
           <ArrowRight size={18} />
         </button>
       </div>

@@ -1,0 +1,39 @@
+{
+    # Global Caddy options
+    email {$ACME_EMAIL:admin@example.com}
+}
+
+# Main Site Block: Uses $DOMAIN if set, otherwise listens on :80
+{$DOMAIN::80} {
+    encode zstd gzip
+
+    # Route backend REST API endpoints
+    handle /api/* {
+        reverse_proxy backend:8000 {
+            header_up Host {host}
+            header_up X-Real-IP {remote_host}
+        }
+    }
+
+    # Route backend real-time WebSockets
+    handle /ws/* {
+        reverse_proxy backend:8000 {
+            header_up Host {host}
+            header_up X-Real-IP {remote_host}
+        }
+    }
+
+    # Route frontend pages, SSR, and assets
+    handle {
+        reverse_proxy frontend:3000
+    }
+
+    # Production security headers
+    header {
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "SAMEORIGIN"
+        X-XSS-Protection "1; mode=block"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    }
+}
